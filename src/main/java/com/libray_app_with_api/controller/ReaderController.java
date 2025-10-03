@@ -12,7 +12,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/v1/readers")
@@ -26,6 +26,11 @@ public class ReaderController implements RequiredByController<ReaderDto> {
     @GetMapping
     public List<ReaderDto> findAll() {
         return ReaderMapper.mapToReaderDtoList(readerDbService.findAll());
+    }
+
+    @GetMapping(value = "/find/readerId/{id}")
+    public Optional<Reader> findById(@PathVariable long id) {
+        return readerDbService.findById(id);
     }
 
     @Override

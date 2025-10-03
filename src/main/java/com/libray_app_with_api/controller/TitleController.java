@@ -26,6 +26,12 @@ public class TitleController implements RequiredByController <TitleDto> {
         return TitleMapper.mapToTitleDtoList(titleDbService.findAll());
     }
 
+    @GetMapping(value = "find/titleId/{TITLE_ID}")
+    public Optional<Title> findTitleById(@PathVariable long TITLE_ID) {
+        System.out.println("Title ID: " + TITLE_ID);
+        return titleDbService.findTitleById(TITLE_ID);
+    }
+
     @Override
     @PostMapping(value = "/create/title", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TitleDto> create(@Valid @RequestBody TitleDto objectDto) {
