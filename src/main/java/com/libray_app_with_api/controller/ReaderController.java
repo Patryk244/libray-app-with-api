@@ -1,12 +1,12 @@
 package com.libray_app_with_api.controller;
 
 import com.libray_app_with_api.controller.controllerService.RequiredByController;
-import com.libray_app_with_api.controller.errorController.exceptions.InValidData;
 import com.libray_app_with_api.domain.Reader;
 import com.libray_app_with_api.domain.dto.ReaderDto;
 import com.libray_app_with_api.mapper.ReaderMapper;
 import com.libray_app_with_api.service.ReaderDbService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/readers")
+@RequiredArgsConstructor
 public class ReaderController implements RequiredByController<ReaderDto> {
 
     @Autowired
