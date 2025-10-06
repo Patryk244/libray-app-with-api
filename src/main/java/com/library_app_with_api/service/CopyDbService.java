@@ -1,6 +1,7 @@
 package com.library_app_with_api.service;
 
 import com.library_app_with_api.controller.errorController.exceptions.CopyNotFound;
+import com.library_app_with_api.controller.errorController.exceptions.TitleIsNotAccessToBorrow;
 import com.library_app_with_api.domain.Copy;
 import com.library_app_with_api.domain.enums.StatusCopy;
 import com.library_app_with_api.repository.CopyRepository;
@@ -13,7 +14,7 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-public class CopyDbService implements DbServicePattern <Copy> {
+public class CopyDbService implements DbServicePattern<Copy> {
 
     private final CopyRepository copyRepository;
 
@@ -36,16 +37,22 @@ public class CopyDbService implements DbServicePattern <Copy> {
                 .orElseThrow(CopyNotFound::new));
     }
 
-    public List<Copy> findCopyByTitleAndAuthor(String title, String author) {
-        List<Copy> copyList = copyRepository.findCopyByTitleAndAuthor(title, author);
-        if (copyList.isEmpty()) {
+    public List<Copy> findCopyByTitleAndAuthor(String title, String author) throws CopyNotFound {
+        try {
+            List<Copy> copyList = copyRepository.findCopyByTitleAndAuthor(title, author);
+            return Objects.requireNonNull(copyList);
+        } catch (CopyNotFound copyNotFound) {
             throw new CopyNotFound();
         }
-        return copyList;
     }
 
-    public Copy findFirstAvailableCopyByTitleAndAuthor(String title, String author) {
-        return copyRepository.findFirstAvailableCopyByTitleAndAuthor(title, author);
+    public Copy findFirstAvailableCopyByTitleAndAuthor(String title, String author) throws TitleIsNotAccessToBorrow {
+        try {
+            Copy copy = copyRepository.findFirstAvailableCopyByTitleAndAuthor(title, author);
+            return Objects.requireNonNull(copy);
+        } catch (NullPointerException e) {
+            throw new TitleIsNotAccessToBorrow();
+        }
     }
 
     @Transactional

@@ -1,8 +1,6 @@
 package com.library_app_with_api.controller.errorController;
 
-import com.library_app_with_api.controller.errorController.exceptions.CopyNotFound;
-import com.library_app_with_api.controller.errorController.exceptions.ReaderNotFound;
-import com.library_app_with_api.controller.errorController.exceptions.TitleNotFound;
+import com.library_app_with_api.controller.errorController.exceptions.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -45,5 +43,20 @@ public class HttpGlobalErrorController extends ResponseEntityExceptionHandler {
     @ExceptionHandler(CopyNotFound.class)
     public ResponseEntity<Object> handleCopyNotFound(CopyNotFound ext) {
         return new ResponseEntity<>("Copy Not Found!", HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ReaderHasBorrowedThisTitle.class)
+    public ResponseEntity<Object> handleReaderHasBorrowedThisTitle(ReaderHasBorrowedThisTitle ext) {
+        return new ResponseEntity<>("Reader Has Borrowed This Title!", HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(TitleIsNotAccessToBorrow.class)
+    public ResponseEntity<Object> handleTitleIsAccessToBorrow(TitleIsNotAccessToBorrow ext) {
+        return new ResponseEntity<>("Title Is Not Access To Borrow!", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(LoanNotFound.class)
+    public ResponseEntity<Object> handleLoanNotFound(LoanNotFound ext) {
+        return new ResponseEntity<>("Loan Not Found! Or title is land", HttpStatus.NOT_FOUND);
     }
 }

@@ -13,7 +13,7 @@ import lombok.*;
                 name = "Copy.findByTitleAndCount",
                 query = """
                         SELECT COUNT(c.title_id) AS COUNTER FROM copys c INNER JOIN  titles t
-                            ON t.title_id = c.title_id WHERE t.title = :TITLE
+                            ON t.title_id = c.title_id WHERE t.title = :TITLE and c.status = 'IN_CIRCULATION'
                        """
         ),
         @NamedNativeQuery(
@@ -51,4 +51,9 @@ public class Copy {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private StatusCopy status;
+
+    @Override
+    public String toString() {
+        return "CopyId: " + copyId+ ", title: " + title + ", status: " + status;
+    }
 }

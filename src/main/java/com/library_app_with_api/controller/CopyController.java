@@ -26,8 +26,8 @@ public class CopyController {
         return CopyMapper.mapToCopyDtoList(copyDbService.findAll());
     }
 
-    @GetMapping(value = "/count/title/{title}")
-    public String countByTitle(@PathVariable String title) {
+    @GetMapping(value = "/count/title/{title}/available")
+    public String countByTitleAndAvailable(@PathVariable String title) {
         long numberOfCopies = copyDbService.findByTitleAndCount(title);
         return numberOfCopies == 0 ? "Title: " + title + " Not Found" : ("Title: " + title
                 + " has " + numberOfCopies + " copies");
