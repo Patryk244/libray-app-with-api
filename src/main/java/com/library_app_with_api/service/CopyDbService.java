@@ -1,7 +1,6 @@
 package com.library_app_with_api.service;
 
-import com.library_app_with_api.controller.errorController.exceptions.CopyNotFound;
-import com.library_app_with_api.controller.errorController.exceptions.TitleIsNotAccessToBorrow;
+import com.library_app_with_api.controller.errorController.exceptions.*;
 import com.library_app_with_api.domain.Copy;
 import com.library_app_with_api.domain.enums.StatusCopy;
 import com.library_app_with_api.repository.CopyRepository;
@@ -38,12 +37,11 @@ public class CopyDbService implements DbServicePattern<Copy> {
     }
 
     public List<Copy> findCopyByTitleAndAuthor(String title, String author) throws CopyNotFound {
-        try {
-            List<Copy> copyList = copyRepository.findCopyByTitleAndAuthor(title, author);
-            return Objects.requireNonNull(copyList);
-        } catch (CopyNotFound copyNotFound) {
+        List<Copy> copyList = copyRepository.findCopyByTitleAndAuthor(title, author);
+        if (copyList.isEmpty()) {
             throw new CopyNotFound();
         }
+        return copyList;
     }
 
     public Copy findFirstAvailableCopyByTitleAndAuthor(String title, String author) throws TitleIsNotAccessToBorrow {

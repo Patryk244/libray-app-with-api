@@ -4,6 +4,8 @@ import com.library_app_with_api.domain.enums.StatusCopy;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Objects;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -56,4 +58,18 @@ public class Copy {
     public String toString() {
         return "CopyId: " + copyId+ ", title: " + title + ", status: " + status;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Copy copy = (Copy) o;
+        return Objects.equals(copyId, copy.copyId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(copyId);
+    }
+
 }
