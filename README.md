@@ -38,34 +38,6 @@ This application provides a complete library management system with functionalit
 - **Validation**: Input validation for allDTO objects
 - **Exception Handling**: Global error handling with custom exceptions
 
-## Database Schema
-
-### Tables
-
-**titles**
-- `title_id` (PK)
-- `title`
-- `author`
-- `date_release`
-- Unique constraint on (title, author)
-
-**copys**
-- `copy_id` (PK)
-- `title_id` (FK)
-- `status` (ENUM)
-
-**readers**
-- `reader_id` (PK)
-- `first_name`
-- `last_name`
-- `creation_date`
-
-**loans**
-- `loan_id` (PK)
-- `copy_id` (FK)
-- `reader_id` (FK)
-- `borrowed_date`
-- `returned_date`
 
 ## API Endpoints
 
@@ -218,26 +190,6 @@ The application includes global exception handling for:
 - `DataIntegrityViolationException` - HTTP 400
 - `MethodArgumentNotValidException` - HTTP 400
 
-## Validation Rules
-
-### TitleDto
-- Title: 6-30 characters
-- Author: 7-40 characters
-- Date release: Must be in the past or present
-
-### ReaderDto
-- First name: 3-20 characters
-- Last name: 3-20 characters
-- Creation date: Must be present or future
-
-### CopyDto
-- Status: Cannot be null
-
-### LoanDto
-- Copy: Cannot be null
-- Reader: Cannot be null
-- Borrowed date: Cannot be null
-
 ## API Usage Examples
 
 ### Create a new title
@@ -270,10 +222,6 @@ curl -X POST http://localhost:8080/v1/loans/create/borrow/reader/id/1/title/Rok%
 ```bash
 curl -X PUT http://localhost:8080/v1/loans/reader/1/return/title/Rok%201984/author/George%20Orwell
 ```
-
-## License
-
-This project is created for educational purposes.
 
 ## Author
 
