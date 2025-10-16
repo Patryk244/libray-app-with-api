@@ -277,4 +277,4 @@ This project is created for educational purposes.
 
 ## Author
 
-Created as a library management system demonstration project.
+Patryk Rejent.
