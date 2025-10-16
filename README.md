@@ -6,7 +6,6 @@ REST API application for managing a library system, built with Spring Boot and M
 - [Overview](#overview)
 - [Technologies](#technologies)
 - [Features](#features)
-- [Database Schema](#database-schema)
 - [API Endpoints](#api-endpoints)
 - [Installation](#installation)
 - [Configuration](#configuration)
